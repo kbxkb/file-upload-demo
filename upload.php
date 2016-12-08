@@ -12,7 +12,7 @@ function hasValue($input)
 
 function encrypt_decrypt_short_string($key, $filename)
 {
-	$encrypted = '';
+	$encrypted = "";
 	$len_filename = strlen($filename);
 	$len_key = strlen($key);
 	for($i = 0; $i < $len_filename;)
@@ -71,9 +71,8 @@ if ($uploadOk == 0)
 else
 {
 	$url = '';
-        $base_file_name = basename($target_file);
         $time_now = strval(time());
-	$encrypted_filename = urlencode(encrypt_decrypt_short_string($time_now, $base_file_name));
+	$encrypted_filename = urlencode(encrypt_decrypt_short_string($time_now, basename($_FILES["fileToUpload"]["name"])));
 
 	if(hasValue($passphrase))
 	{
