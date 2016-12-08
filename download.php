@@ -30,7 +30,7 @@ $password = $_GET['password'];
 
 if(time() - intval($key) > 86400)
 {
-	echo "Sorry, you are no longer have access to this file or it has been removed. Please contact file owner<br/><br/>";
+	echo "Sorry, you are no longer have access to this file or it has been removed. Please contact the file owner.<br/><br/>";
 	exit;
 }
 
@@ -48,12 +48,9 @@ else
 $path = '/var/www/html/uploads/';
 $file_path = $path . $full_filename;
 
-//error_log ("XXXXXXXXXXXXXXXXXX:" . $file_path);
-//exit;
-
 if(!file_exists($file_path))
 {
-	echo "Sorry, you are no longer have access to this file or it has been removed. Please contact file owner<br/><br/>";
+	echo "Sorry, you are no longer have access to this file or it has been removed. Please contact the file owner.<br/><br/>";
 	exit;
 }
 

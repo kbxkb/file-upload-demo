@@ -92,9 +92,9 @@ else
 			echo "<b>";
 			echo "CAUTION: Because you selected a password, the link above will NOT work unless the password is appended at the end of the link!<br/><br/>";
 			echo "The link is shown WITHOUT the actual password. Anyone in possession of the link must copy and paste the link on their browser address box,<br/>";
-			echo "followed by the password, which you must share with them.<br/><br/>";
+			echo "followed by the password immediately after the link, which you must share with them.<br/><br/>";
 			echo "</b>";
-			echo "Plese make a note of your password, the system does not store it, so we cannot retrieve if for you if you lose it:<br/>";
+			echo "Please make a note of your password, the system does not store it, so we cannot retrieve if for you if you lose it:<br/>";
 			echo $passphrase;
 		}
 		else
