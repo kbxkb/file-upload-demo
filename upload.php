@@ -110,6 +110,7 @@ if ($uploadOk == 0)
 else
 {
 	$url = '';
+	$home = 'http://' . $_SERVER['SERVER_NAME'] . "/form.html";
         $time_now = strval(time());
 	$encrypted_filename = urlencode(encrypt_decrypt_short_string($time_now, basename($_FILES["fileToUpload"]["name"])));
 
@@ -127,7 +128,7 @@ else
 	{
 		if(!encryptFile($target_unencrypted_file, $time_now, $target_file))
 		{
-			echo "There was an error encrypting your file on the server. No file has been uploaded";
+			echo "There was an error encrypting your file on the server. No file has been uploaded<br/><br/>";
 		}
 		else
 		{
@@ -141,19 +142,20 @@ else
 				echo "The link is shown WITHOUT the actual password. Anyone in possession of the link must copy and paste the link on their browser address box,<br/>";
 				echo "followed by the password immediately after the link. You must share the password with them.<br/><br/>";
 				echo "</b>";
-				echo "Please make a note of your password, the system does not store it, so we cannot retrieve if for you if you lose it:<br/>";
-				echo $passphrase;
+				echo "Please make a note of your password, the system does not store it, so we cannot retrieve if for you if you lose it:<br/><br/>";
+				echo $passphrase . "<br/><br/>";
 			}
 			else
 			{
-				echo "You can now share this link for downloading: <a href='$url'>$url</a>";
+				echo "You can now share this link for downloading: <a href='$url'>$url</a><br/><br/>";
 			}
 		}
 		unlink($target_unencrypted_file);
 	}
 	else
 	{
-		echo "There was an error uploading your file";
+		echo "There was an error uploading your file<br/><br/>";
 	}
+	echo "<a href='$home'>Back</a>";
 }
 ?>
