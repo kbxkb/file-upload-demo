@@ -4,27 +4,27 @@ define('FILE_ENCRYPTION_BLOCKS', 10000);
 
 function hasValue($input)
 {
-        $strTemp = trim($input);
-        if($strTemp !== '')
-        {
-                return true;
-        }
-        return false;
+	$strTemp = trim($input);
+	if($strTemp !== '')
+	{
+		return true;
+	}
+	return false;
 }
 
 function encrypt_decrypt_short_string($key, $filename)
 {
-        $encrypted = "";
-        $len_filename = strlen($filename);
-        $len_key = strlen($key);
-        for($i = 0; $i < $len_filename;)
-        {
-                for($j = 0; $j < $len_key; $j++, $i++)
-                {
-                        $encrypted .= $filename{$i} ^ $key{$j};
-                }
-        }
-        return $encrypted;
+	$encrypted = "";
+	$len_filename = strlen($filename);
+	$len_key = strlen($key);
+	for($i = 0; $i < $len_filename;)
+	{
+		for($j = 0; $j < $len_key; $j++, $i++)
+		{
+			$encrypted .= $filename{$i} ^ $key{$j};
+		}
+	}
+	return $encrypted;
 }
 
 /**
@@ -38,30 +38,36 @@ function encrypt_decrypt_short_string($key, $filename)
  */
 function decryptFile($source, $key, $dest)
 {
-    $key = substr(sha1($key, true), 0, 16);
+	$key = substr(sha1($key, true), 0, 16);
 
-    $error = false;
-    if ($fpOut = fopen($dest, 'w')) {
-        if ($fpIn = fopen($source, 'rb')) {
-            // Get the initialzation vector from the beginning of the file
-            $iv = fread($fpIn, 16);
-            while (!feof($fpIn)) {
-                $ciphertext = fread($fpIn, 16 * (FILE_ENCRYPTION_BLOCKS + 1)); // we have to read one block more for decrypting than for encrypting
-                $plaintext = openssl_decrypt($ciphertext, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
-                // Use the first 16 bytes of the ciphertext as the next initialization vector
-                $iv = substr($ciphertext, 0, 16);
-                fwrite($fpOut, $plaintext);
-            }
-            fclose($fpIn);
-        } else {
-            $error = true;
-        }
-        fclose($fpOut);
-    } else {
-        $error = true;
-    }
+	$error = false;
+	if ($fpOut = fopen($dest, 'w'))
+	{
+		if ($fpIn = fopen($source, 'rb'))
+		{
+		// Get the initialzation vector from the beginning of the file
+		$iv = fread($fpIn, 16);
+		while (!feof($fpIn)) {
+		$ciphertext = fread($fpIn, 16 * (FILE_ENCRYPTION_BLOCKS + 1)); // we have to read one block more for decrypting than for encrypting
+		$plaintext = openssl_decrypt($ciphertext, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
+		// Use the first 16 bytes of the ciphertext as the next initialization vector
+		$iv = substr($ciphertext, 0, 16);
+		fwrite($fpOut, $plaintext);
+	}
+	fclose($fpIn);
+	}
+	else
+	{
+		$error = true;
+	}
+	fclose($fpOut);
+	}
+	else
+	{
+		$error = true;
+	}
 
-    return $error ? false : $dest;
+	return $error ? false : $dest;
 }
 
 $encrypted_filename = $_GET['file'];
